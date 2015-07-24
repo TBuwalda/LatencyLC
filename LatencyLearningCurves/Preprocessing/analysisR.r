@@ -1,6 +1,6 @@
 
 rm(list = setdiff(ls(), lsf.str()))
-setwd("/Users/tabuwalda/Documents/LearnLab Summer School/spatial-data/SILC Data")
+setwd("/Users/tabuwalda/Documents/2015LearnLabSummerSchool/ShinyApp/LatencyLearningCurves/")
 
 library(lme4)
 library(dplyr)
@@ -8,10 +8,36 @@ options(dplyr.width = Inf)
 
 
 # Read In Data - This is only practice Data, we also want pre- and posttest
-dat <- read.table("SILC datashop upload with millisecond.txt",header=TRUE,sep="\t",fill=TRUE,stringsAsFactors=FALSE)
-dat <- dat[!is.na(dat$CF..Reaction.Time.in.Milliseconds.),]
+dat <- read.table("../../spatial-data/SILC Data/SILC datashop upload with millisecond.txt",header=TRUE,sep="\t",fill=TRUE,stringsAsFactors=FALSE)
+pre <- read.table("../../spatial-data/PrePostAlina/KC_pre.txt",header=TRUE,sep="\t",fill=TRUE,stringsAsFactors=FALSE)
+post <- read.table("../../spatial-data/PrePostAlina/KC_post.txt",header=TRUE,sep="\t",fill=TRUE,stringsAsFactors=FALSE)
+pp <- rbind(pre,post)
+
+pp$Anon.Student.Id <- pp$Subj
+pp$Subj <- NULL
+pp$Session.Id <- NA
+pp$Time <- NA
+pp$Level.Unit. <- NA
+pp$Problem.Name <- pp$Condition
+pp$Condition <- NULL
+pp$Step.Name <- "Step1"
+pp$Outcome <- NA
+pp$Selection <- NA # Are NA in dat
+pp$Action <- NA # Are NA in dat
+pp$Input <- NA
+pp$KC..Mental.Spatial.Skills. <- NA
+pp$CF..Trial.Number. <- NA
+pp$CF..Reaction.Time.in.Milliseconds. <- NA
+pp$CF..Outlier.Max. <- NA
+pp$CF..Outlier.Min. <- NA
+pp$CF..Trim.Min.Value. <- NA
+
+
+
+
 
 # Make new columns
+dat$Part <- Training
 dat$Task <- dat$KC..Mental.Spatial.Skills.
 dat$KC..Mental.Spatial.Skills. <- NULL
 dat$Subj <- dat$Anon.Student.Id
@@ -20,6 +46,8 @@ dat$Problem <- ifelse(dat$Task == "MPFT", substr(as.character(dat$Problem.Name),
 	nchar(as.character(dat$Problem.Name))-10)) 
 dat$Index <- paste(dat$Subj,dat$Problem,sep="-")
 dat$RT <- dat$CF..Reaction.Time.in.Milliseconds.
+dat$Acc <- ifelse(dat$Outcome == "CORRECT", 1, 
+			ifelse(dat$Outcome == "INCORRECT", 0, NA))
 dat$logRT <- log(dat$CF..Reaction.Time.in.Milliseconds.)
 dat$Rotation.MRT <- ifelse(dat$Task == "MRT", gsub(".*Y", "", dat$Problem), NA)
 dat$ArmAngle.MRT <- ifelse(dat$Task == "MRT", gsub(".*_|Y.*","",dat$Problem), NA)
@@ -31,6 +59,10 @@ dat$Rotation.MPFT <- ifelse(dat$Task == "MPFT",gsub(".*[^IV]","",dat$Problem), N
 dat$Month <- as.numeric(gsub("/.*","",dat$Session.Id))
 dat$Day <- as.numeric(gsub("/","",substr(dat$Session.Id,3,4)))
 dat$Date <- as.numeric(paste(dat$Month,dat$Day,sep=""))
+
+
+
+
 
 
 aics <- data.frame(KCmodel=rep(NA,100),AIC=NA)
@@ -194,14 +226,27 @@ difficulty.lmer <- glmer(logRT~KC.Difficulty +
 aics[10,]$KCmodel <- "Difficulty"
 aics[10,]$AIC <- AIC(difficulty.lmer)
 
+# Make KC model - One KC
+dat$KC.Single <- "Single"
+dat$KC.Single.Idx <- paste(dat$Subj,dat$KC.Single,sep="-")
+dat$tmpVar <- 1
+dat <- dat %>% 
+  group_by(KC.Single.Idx) %>%
+  mutate(KC.Single.Opp = cumsum(tmpVar)) # Opportunity
+single.lmer <- lmer(logRT~KC.Single +
+  KC.Single:KC.Single.Opp+(1|Subj),data=dat[!is.na(dat$logRT),]) # Regression
+
+aics[11,]$KCmodel <- "Similarity"
+aics[11,]$AIC <- AIC(similarity.lmer)
+
 
 listKC <- names(dat)[grepl("KC.",names(dat))]
 listKC <- listKC[!grepl(".Opp",listKC)]
 listKC <- listKC[!grepl(".Idx",listKC)]
 
-save(aics,file="aics.Rdat")
-save(dat,file="datShiny.Rdat")
-save(listKC,file="listKCShiny.Rdat")
+save(aics,file="./Data/aics.Rdat")
+save(dat,file="./Data/datShiny.Rdat")
+save(listKC,file="./Data/listKCShiny.Rdat")
 
 i = 10
 dat$tmpVar <- 1

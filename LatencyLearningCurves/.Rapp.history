@@ -1,0 +1,146 @@
+pre <- read.table("../../spatial-data/PrePostAlina/KC_pre.txt",header=TRUE,sep="\t",fill=TRUE,stringsAsFactors=FALSE)
+setwd("/Users/tabuwalda/Documents/2015LearnLabSummerSchool/ShinyApp/LatencyLearningCurves/")
+pre <- read.table("../../spatial-data/PrePostAlina/KC_pre.txt",header=TRUE,sep="\t",fill=TRUE,stringsAsFactors=FALSE)
+dat <- read.table("../../spatial-data/SILC Data/SILC datashop upload with millisecond.txt",header=TRUE,sep="\t",fill=TRUE,stringsAsFactors=FALSE)#
+#
+pre <- read.table("../../spatial-data/PrePostAlina/KC_pre.txt",header=TRUE,sep="\t",fill=TRUE,stringsAsFactors=FALSE)#
+post <- read.table("../../spatial-data/PrePostAlina/KC_post.txt",header=TRUE,sep="\t",fill=TRUE,stringsAsFactors=FALSE)
+h(pre)
+h(post)
+names(pre)
+names(pre) == names(post)
+sum(names(pre) != names(post))
+sum(names(pre) != names(dat))
+names(pre)
+names(dat)
+unique(pre$Subj)
+unique(dat$Subj)
+prepost <- rbind(pre,post)
+pp <- rbind(pre,post)
+names(dat) %out% names(pp)
+length(names(dat))
+sum(names(dat) %out% names(pp))
+names(dat)
+h(dat)
+h(pp)
+unique(dat$Selection)
+unique(dat$Action)
+unique(pp$Incorrect.Response)
+tmp <- with(tmp[tmp$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=Opportunity), mean)#
+    tmp$Acc <- with(tmp, aggregate(list(Acc=Acc),list(Opportunity=Opportunity),mean))#
+    tmp$ErrorRate <- 1 - tmp$Acc
+tmp<- dat
+tmp <- with(tmp[tmp$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=Opportunity), mean)#
+    tmp$Acc <- with(tmp, aggregate(list(Acc=Acc),list(Opportunity=Opportunity),mean))#
+    tmp$ErrorRate <- 1 - tmp$Acc
+h(tmp)
+tmp <- with(tmp[tmp$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=Opportunity), mean))#
+    tmp$Acc <- with(tmp, aggregate(list(Acc=Acc),list(Opportunity=Opportunity),mean))#
+    tmp$ErrorRate <- 1 - tmp$Acc
+load("./Data/datShiny.Rdat")
+tmp <- dat
+tmp <- with(tmp[tmp$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=Opportunity), mean))#
+    tmp$Acc <- with(tmp, aggregate(list(Acc=Acc),list(Opportunity=Opportunity),mean))#
+    tmp$ErrorRate <- 1 - tmp$Acc
+h(tmp)
+cutpoints <- with(dat, seq(0,max(get(paste(input$kc,".Opp",sep=""))+as.numeric(input$bins)),by=as.numeric(input$bins)))
+cutpoints <- with(dat, seq(0,max(get(paste("KC.Similarity.Opp",sep=""))+as.numeric("10")),by=as.numeric("10")))
+dat$binnedOpportunity <- with(dat, cut(get(paste("KC.Similarity.Opp",sep="")),cutpoints,include.lowest=TRUE,labels=FALSE))
+tmp <- with(tmp[tmp$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=Opportunity), mean))#
+    tmp$Acc <- with(tmp, aggregate(list(Acc=Acc),list(Opportunity=Opportunity),mean))#
+    tmp$ErrorRate <- 1 - tmp$Acc
+cutpoints <- with(tmp, seq(0,max(get(paste("KC.Similarity.Opp",sep=""))+as.numeric("10")),by=as.numeric("10")))
+tmp$binnedOpportunity <- with(tmp, cut(get(paste("KC.Similarity.Opp",sep="")),cutpoints,include.lowest=TRUE,labels=FALSE))
+tmp <- with(tmp[tmp$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=Opportunity), mean))#
+    tmp$Acc <- with(tmp, aggregate(list(Acc=Acc),list(Opportunity=Opportunity),mean))#
+    tmp$ErrorRate <- 1 - tmp$Acc
+tmp$Opportunity <- tmp$binnedOpportunity
+tmp <- with(tmp[tmp$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=Opportunity), mean))#
+    tmp$Acc <- with(tmp, aggregate(list(Acc=Acc),list(Opportunity=Opportunity),mean))#
+    tmp$ErrorRate <- 1 - tmp$Acc
+h(tmp)
+h(dat)
+tmp <- with(tmp[tmp$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=Opportunity), mean))#
+    tmp$Acc <- with(dat, aggregate(list(Acc=Acc),list(Opportunity=Opportunity),mean))#
+    tmp$ErrorRate <- 1 - tmp$Acc
+tmp <- with(tmp[tmp$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=Opportunity), mean))#
+    tmp$Acc <- with(dat, aggregate(list(Acc=Acc),list(Opportunity=binnedOpportunity),mean))#
+    tmp$ErrorRate <- 1 - tmp$Acc
+dir
+dir()
+runApp("../LatencyLearningCurves/")
+library(shiny)
+runApp("../LatencyLearningCurves/")
+runApp("../LatencyLearningCurves/")
+runApp("../LatencyLearningCurves/")
+tst
+tst#
+opportunities
+tmp <- dat
+with(tmp[tmp$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=Opportunity), mean))
+with(tmp[tmp$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=KC.Similarity.Opp), mean))
+with(dat, aggregate(list(Acc=Acc),list(Opportunity=KC.Similarity.Opp),mean))
+h(with(dat, aggregate(list(Acc=Acc),list(Opportunity=KC.Similarity.Opp),mean)))
+nrow(with(dat, aggregate(list(Acc=Acc),list(Opportunity=KC.Similarity.Opp),mean)))
+nrow(with(tmp[tmp$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=KC.Similarity.Opp), mean)))
+runApp("../LatencyLearningCurves/")
+cutpoints <- with(dat, seq(0,max(get(paste(input$kc,".Opp",sep=""))+as.numeric(input$bins)),by=as.numeric(input$bins)))#
+    dat$binnedOpportunity <- with(dat, cut(get(paste(input$kc,".Opp",sep="")),cutpoints,include.lowest=TRUE,labels=FALSE))#
+    cat(h(dat$KC.Similarity))#
+    rt <- with(dat[dat$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=binnedOpportunity,KC=get(input$kc)),mean,na.rm=TRUE))
+input <- data.frame
+input <- data.frame()
+input$kc <- "KC.Similarity"
+input <- data.frame(kc="KC.Similarity")
+input
+cutpoints <- with(dat, seq(0,max(get(paste(input$kc,".Opp",sep=""))+as.numeric(input$bins)),by=as.numeric(input$bins)))#
+    dat$binnedOpportunity <- with(dat, cut(get(paste(input$kc,".Opp",sep="")),cutpoints,include.lowest=TRUE,labels=FALSE))#
+    cat(h(dat$KC.Similarity))#
+    rt <- with(dat[dat$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=binnedOpportunity,KC=get(input$kc)),mean,na.rm=TRUE))
+input <- data.frame(kc="KC.Similarity",bins=10)
+cutpoints <- with(dat, seq(0,max(get(paste(input$kc,".Opp",sep=""))+as.numeric(input$bins)),by=as.numeric(input$bins)))#
+    dat$binnedOpportunity <- with(dat, cut(get(paste(input$kc,".Opp",sep="")),cutpoints,include.lowest=TRUE,labels=FALSE))#
+    cat(h(dat$KC.Similarity))#
+    rt <- with(dat[dat$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=binnedOpportunity,KC=get(input$kc)),mean,na.rm=TRUE))
+input$kc
+get(input$kc)
+input <- data.frame(kc="KC.Similarity",bins=10,stringsAsFactors=FALSE)
+cutpoints <- with(dat, seq(0,max(get(paste(input$kc,".Opp",sep=""))+as.numeric(input$bins)),by=as.numeric(input$bins)))#
+    dat$binnedOpportunity <- with(dat, cut(get(paste(input$kc,".Opp",sep="")),cutpoints,include.lowest=TRUE,labels=FALSE))#
+    cat(h(dat$KC.Similarity))#
+    rt <- with(dat[dat$Acc == 1,], aggregate(list(logRT=logRT,RT=RT),list(Opportunity=binnedOpportunity,KC=get(input$kc)),mean,na.rm=TRUE))
+h(rt)
+acc <- with(dat, aggregate(list(Acc=Acc),list(Opportunity=binnedOpportunity,KC=get(input$kc)),mean,na.rm=TRUE))
+h(acc)
+merge(rt,acc)
+h(merge(rt,acc))
+nrow(rt)
+nrow(acc)
+range(rt$Opportunity)
+range(acc$Opportunity)
+h(cbind(rt,acc))
+full_join(rt,acc)
+library(dplyr)
+full_join(rt,acc)
+?dplyr
+?full_join
+??full_join
+??join
+?join
+h(join(rt,acc))
+?join
+tst1 <-data.frame(x=c(1,2,3,4,5,6)),y=c(6,5,4,3,2,1),z=c(10,20,30,40,50,60))
+tst1 < -data.frame(x=c(1,2,3,4,5,6),y=c(6,5,4,3,2,1),z=c(10,20,30,40,50,60))
+tst1 <-data.frame(x=c(1,2,3,4,5,6),y=c(6,5,4,3,2,1),z=c(10,20,30,40,50,60))
+tst2 <-data.frame(x=c(1,2,3,4,5,6),y=c(6,5,4,3,2,1),z=c(100,200,300,400,500,600))
+inner_join(tst1,tst2)
+tst1 <-data.frame(x=c(1,2,3,4,5,6),y=c(6,5,4,3,2,1),z1=c(10,20,30,40,50,60))
+tst1 <-data.frame(x=c(1,2,3,4,5,6),y=c(6,5,4,3,2,1),z2=c(10,20,30,40,50,60))
+inner_join(tst1,tst2)
+left_join(tst1,tst2)
+semi_join(tst1,tst2)
+library(dplyr)
+?full_join
+full_join(tst1,tst2)
+full_join(tst1,tst2)
+version(dplyr)
